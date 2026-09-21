@@ -1,0 +1,13 @@
+{
+  "name": "dsh-code-complete",
+  "version": "0.1.0",
+  "description": "DSH code completion plugin (FIM, agent-autonomous; multi-channel: DeepSeek official FIM / DashScope qwen-coder-turbo / SiliconFlow; zero runtime deps)",
+  "main": "index.cjs",
+  "type": "commonjs",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/dearbld/dsh-code-complete.git" },
+  "keywords": ["deepseek-harness", "dsh", "dsh-plugin", "code-completion", "fim", "fill-in-the-middle", "agent", "llm"],
+  "files": ["index.cjs", "README.md", "LICENSE"],
+  "peerDependencies": { "@deepseek-ai/cordis": "^4.0.1" },
+  "exports": { ".": "./index.cjs", "./package.json": "./package.json" }
+}
