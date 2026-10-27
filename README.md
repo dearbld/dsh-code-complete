@@ -23,13 +23,21 @@ dsh plugin --profile <你的 profile> add dsh-code-complete
 
 | 键 | 默认 | 说明 |
 | --- | --- | --- |
-| `timeoutMs` | 30000 | 单次 FIM 请求超时 |
-| `maxTokensDefault` | 128 | 补全长默认（上限 512） |
-| `channelOrder` | auto 次序 | 覆盖默认降级链 |
+| `prefixChars` / `suffixChars` | 8000 / 2000 | 光标前后上下文的字符预算 |
+| `windowLines` | 200 | 当前文件上下文窗口行数 |
+| `maxTokens` | 128 | 默认补全长度 |
+| `maxTokensCap` | 512 | 补全长度上限 |
+| `timeoutMs` | 8000 | DashScope / SiliconFlow 请求超时 |
+| `deepseekTimeoutMs` | 3000 | DeepSeek 官方 FIM 请求超时 |
+| `throttleMs` | 1200 | 两次调用之间的最小间隔 |
+| `stopWords` | `["\n\n", "// "]` | 停止词数组；非数组时回落默认值 |
+| `dashscopeRef` | 内置两个 REF | 可用逗号分隔的 REF 列表覆盖 DashScope 凭证查找顺序 |
+
+降级链由工具参数的 `channel` 选择：`auto`（默认）依次尝试 `deepseek → dashscope → siliconflow`；也可指定其中一个通道。没有 `maxTokensDefault` 或 `channelOrder` 配置键。
 
 ## 凭证
 
-按通道自动解析（存在哪个走哪个）：DeepSeek 官方 → `DEEPSEEK_API_KEY`；DashScope → `GLM_EMBEDDING_KEY` 之外的百炼系 key；SiliconFlow → 对应渠道 key。均可通过 DSH 凭证库管理。
+按通道解析 REF：DeepSeek 官方使用 `DEEPSEEK_API_KEY`；DashScope 依次尝试 `CODE_COMPLETE_BAILIAN_KEY`、`DASHSCOPE_API_KEY`，也可由 `dashscopeRef` 覆盖；SiliconFlow 使用 `SILICONFLOW_API_KEY`。凭证均可通过 DSH CredentialProvider 管理，插件读取解析结果中的 `.value`。
 
 ## License
 
